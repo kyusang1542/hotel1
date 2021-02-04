@@ -13,7 +13,6 @@ public class HotelServiceImpl implements HotelService{
     @Autowired
     private HotelMapper hotelMapper;
 
-
     @Override
     public void createCheckIn(HotelDto hotelDto) {
         hotelMapper.createCheckIn(hotelDto);
@@ -33,5 +32,11 @@ public class HotelServiceImpl implements HotelService{
     public List<HotelDto> selectCheckIn(String hotelCode) {
         return hotelMapper.selectCheckIn(hotelCode);
     }
+
+    @Override
+    public List<HotelDto> checkInOverlapping(HotelDto hotelDto) {
+        return hotelMapper.checkInOverlapping(hotelDto);
+    }
+
 
 }

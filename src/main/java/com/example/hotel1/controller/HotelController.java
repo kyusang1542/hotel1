@@ -13,6 +13,7 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
 
+    /*
     @RequestMapping(value = "/create/checkin", method = RequestMethod.GET)
     public void createCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
         hotelService.createCheckIn(hotelDto);
@@ -22,10 +23,35 @@ public class HotelController {
         System.out.println((hotelDto.getHotelCheckIn()));
         System.out.println((hotelDto.getHotelCheckOut()));
     }
+    */
+
+    @RequestMapping(value = "/create/checkin", method = RequestMethod.GET)
+    public void createCheckInOverlapping(@RequestBody HotelDto hotelDto) throws Exception{
+        List<HotelDto> list = hotelService.checkInOverlapping(hotelDto);
+        System.out.println(list.size());
+        if(list.size() == 0) {
+            System.out.println("checkIn이 가능한 날짜입니다.");
+            hotelService.createCheckIn(hotelDto);
+        } else {
+            System.out.println("checkIn이 불가능한 날짜입니다.");
+        }
+        System.out.println((hotelDto.getHotelId()));
+        System.out.println((hotelDto.getHotelCode()));
+        System.out.println((hotelDto.getHotelRoomNum()));
+        System.out.println((hotelDto.getHotelCheckIn()));
+        System.out.println((hotelDto.getHotelCheckOut()));
+    }
 
     @RequestMapping(value = "/update/checkin", method = RequestMethod.GET)
     public void updateCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
-        hotelService.updateCheckIn(hotelDto);
+        List<HotelDto> list = hotelService.checkInOverlapping(hotelDto);
+        System.out.println(list.size());
+        if(list.size() == 0) {
+            System.out.println("checkIn이 가능한 날짜입니다.");
+            hotelService.updateCheckIn(hotelDto);
+        } else {
+            System.out.println("checkIn이 불가능한 날짜입니다.");
+        }
         System.out.println((hotelDto.getHotelId()));
         System.out.println((hotelDto.getHotelCode()));
         System.out.println((hotelDto.getHotelRoomNum()));

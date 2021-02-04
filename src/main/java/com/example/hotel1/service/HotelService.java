@@ -13,4 +13,6 @@ public interface HotelService {
     void deleteCheckIn(HotelDto hotelDto);
 
     List<HotelDto> selectCheckIn(String hotelCode);
+
+    List<HotelDto> checkInOverlapping(HotelDto hotelDto);
 }

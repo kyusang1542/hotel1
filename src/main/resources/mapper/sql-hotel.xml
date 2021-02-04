@@ -23,4 +23,12 @@
     <select id="selectCheckIn" parameterType="String" resultType="com.example.hotel1.dto.HotelDto">
         select hotelRoomNum, hotelCheckIn, hotelCheckOut from hotel_reservation where hotelCode = #{hotelCode}
     </select>
+
+    <select id="checkInOverlapping" parameterType="com.example.hotel1.dto.HotelDto" resultType="com.example.hotel1.dto.HotelDto">
+        <![CDATA[
+        select * from hotel_reservation
+        where hotelCode = #{hotelCode} and hotelRoomNum = #{hotelRoomNum}
+        and hotelCheckIn >= #{hotelCheckIn} and hotelCheckOut <= #{hotelCheckOut}
+        ]]>
+    </select>
 </mapper>
