@@ -6,13 +6,13 @@
 
 <mapper namespace="com.example.hotel1.mapper.HotelMapper">
     <insert id="createCheckIn" parameterType="com.example.hotel1.dto.HotelDto">
-        insert into hotel_reservation(hotelId, hotelCode, hotelRoomNum, hotelCheckIn, hotelCheckOut)
-        VALUES(#{hotelId}, #{hotelCode}, #{hotelRoomNum}, #{hotelCheckIn}, #{hotelCheckOut})
+        insert into hotel_reservation(hotelId, hotelCode, hotelRoomCode, hotelCheckIn, hotelCheckOut)
+        VALUES(#{hotelId}, #{hotelCode}, #{hotelRoomCode}, #{hotelCheckIn}, #{hotelCheckOut})
     </insert>
 
    <update id="updateCheckIn" parameterType="com.example.hotel1.dto.HotelDto">
         update hotel_reservation
-        set hotelCode = #{hotelCode}, hotelRoomNum = #{hotelRoomNum}, hotelCheckIn = #{hotelCheckIn}, hotelCheckOut = #{hotelCheckOut}
+        set hotelCode = #{hotelCode}, hotelRoomCode = #{hotelRoomCode}, hotelCheckIn = #{hotelCheckIn}, hotelCheckOut = #{hotelCheckOut}
         where hotelId = #{hotelId}
     </update>
 
@@ -20,15 +20,63 @@
         delete from hotel_reservation where hotelId = #{hotelId}
     </delete>
 
-    <select id="selectCheckIn" parameterType="String" resultType="com.example.hotel1.dto.HotelDto">
-        select hotelRoomNum, hotelCheckIn, hotelCheckOut from hotel_reservation where hotelCode = #{hotelCode}
+    <select id="selectHotelCheckIn" parameterType="String" resultType="com.example.hotel1.dto.HotelDto">
+        select hotelRoomCode, hotelCheckIn, hotelCheckOut from hotel_reservation where hotelCode = #{hotelCode}
     </select>
 
     <select id="checkInOverlapping" parameterType="com.example.hotel1.dto.HotelDto" resultType="com.example.hotel1.dto.HotelDto">
         <![CDATA[
         select * from hotel_reservation
-        where hotelCode = #{hotelCode} and hotelRoomNum = #{hotelRoomNum}
+        where hotelCode = #{hotelCode} and hotelRoomCode = #{hotelRoomCode}
         and hotelCheckIn >= #{hotelCheckIn} and hotelCheckOut <= #{hotelCheckOut}
         ]]>
     </select>
+
+    <select id="checkInOverlappingOneDay" parameterType="com.example.hotel1.dto.HotelDto" resultType="com.example.hotel1.dto.HotelDto">
+        <![CDATA[
+        select * from hotel_reservation
+        where hotelCode = #{hotelCode} and hotelRoomCode = #{hotelRoomCode}
+          and hotelCheckIn <= #{hotelCheckIn} and hotelCheckOut >= #{hotelCheckOut}
+        ]]>
+    </select>
+
+    <resultMap id="HotelNameDto" type="com.example.hotel1.dto.HotelNameDto">
+        <result column="hotelCode" property="hotelCode"/>
+        <result column="hotelAdd" property="hotelAdd"/>
+        <result column="hotelTel" property="hotelTel"/>
+        <result column="hotelName" property="hotelName"/>
+    </resultMap>
+
+    <resultMap id="HotelRoomDto" type="com.example.hotel1.dto.HotelRoomDto">
+        <result column="hotelRoomCode" property="hotelRoomCode"/>
+        <result column="hotelGrade" property="hotelGrade"/>
+        <result column="hotelPrice" property="hotelPrice"/>
+    </resultMap>
+
+    <resultMap id="HotelDto" type="com.example.hotel1.dto.HotelDto">
+        <result column="hotelId" property="hotelId"/>
+        <result column="hotelCode" property="hotelCode"/>
+        <result column="hotelRoomCode" property="hotelRoomCode"/>
+        <result column="hotelCheckIn" property="hotelCheckIn"/>
+        <result column="hotelCheckOut" property="hotelCheckOut"/>
+        <collection property="hotelRoomDto" resultMap="HotelRoomDto"/>
+        <collection property="hotelNameDto" resultMap="HotelNameDto"/>
+    </resultMap>
+
+<!--    <select id="selectIdCheckIn" parameterType="String" resultMap="HotelDto">
+        select a.hotelRoomCode, a.hotelCheckIn
+        from hotel_reservation a where a.hotelId = #{hotelId}
+    </select>-->
+
+    <select id="selectIdCheckIn" parameterType="String" resultMap="HotelDto">
+        select a.hotelId, c.hotelName, c.hotelAdd, c.hotelTel, b.hotelGrade, b.hotelPrice*(a.hotelCheckOut-a.hotelCheckIn) hotelPrice, a.hotelCheckIn, a.hotelCheckOut
+        from hotel_reservation a, hotel_room b, hotel_name c where a.hotelRoomCode = b.hotelRoomCode and a.hotelCode = c.hotelCode and a.hotelId = #{hotelId}
+    </select>
+
+    <select id="checkInDate" parameterType="com.example.hotel1.dto.HotelRoomDto" resultType="com.example.hotel1.dto.HotelRoomDto">
+        select hotelCheckOut - hotelCheckIn from hotel_reservation where hotelId = #{hotelId}
+    </select>
+
+
+
 </mapper>

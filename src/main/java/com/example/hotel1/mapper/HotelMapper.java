@@ -13,7 +13,11 @@ public interface HotelMapper {
 
     void deleteCheckIn(HotelDto hotelDto);
 
-    List<HotelDto> selectCheckIn(String hotelCode);
+    List<HotelDto> selectHotelCheckIn(String hotelCode);
 
     List<HotelDto> checkInOverlapping(HotelDto hotelDto);
+
+    List<HotelDto> selectIdCheckIn(String hotelId);
+
+    List<HotelDto> checkInOverlappingOneDay(HotelDto hotelDto);
 }
