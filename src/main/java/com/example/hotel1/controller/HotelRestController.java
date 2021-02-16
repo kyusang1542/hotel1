@@ -5,7 +5,6 @@ import com.example.hotel1.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -26,8 +25,9 @@ public class HotelRestController {
     }
     */
 
+    /*
     // 체크인, 체크아웃 날짜 중복 체크 후 예약
-    @RequestMapping(value = "/create/checkin", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/create/checkin", method = RequestMethod.GET)
     public void createCheckInOverlapping(@RequestBody HotelDto hotelDto) throws Exception{
         List<HotelDto> list = hotelService.checkInOverlapping(hotelDto);
         System.out.println(list.size());
@@ -43,9 +43,10 @@ public class HotelRestController {
         System.out.println((hotelDto.getHotelCheckIn()));
         System.out.println((hotelDto.getHotelCheckOut()));
     }
+    */
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
-    @RequestMapping(value = "/update/checkin", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/update/checkin", method = RequestMethod.GET)
     public void updateCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
         List<HotelDto> list = hotelService.checkInOverlapping(hotelDto);
         System.out.println(list.size());
@@ -64,25 +65,25 @@ public class HotelRestController {
     }
 
     // 예약 취소
-    @RequestMapping(value = "/delete/checkin", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/delete/checkin", method = RequestMethod.GET)
     public void deleteCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
         hotelService.deleteCheckIn(hotelDto);
     }
 
     // 호텔별 예약 확인
-    @RequestMapping(value = "/read/hotel/checkin/{hotelCode}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/read/hotel/checkin/{hotelCode}", method = RequestMethod.GET)
     public List<HotelDto> selectHotelCheckIn(@PathVariable("hotelCode") String hotelCode) throws Exception{
         return hotelService.selectHotelCheckIn(hotelCode);
     }
 
     // 호텔 개인 예매 정보 확인
-    @RequestMapping(value = "/read/id/checkin/{hotelId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/read/id/checkin/{hotelId}", method = RequestMethod.GET)
     public List<HotelDto> selectIdCheckIn(@PathVariable("hotelId") String hotelId) throws Exception{
         return hotelService.selectIdCheckIn(hotelId);
     }
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 수정버전
-    @RequestMapping(value = "/create/checkin/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/create/checkin/test", method = RequestMethod.GET)
     public void createCheckInOverlappingTest(@RequestBody HotelDto hotelDto) throws Exception{
         int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
 

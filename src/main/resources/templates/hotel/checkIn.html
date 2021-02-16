@@ -1,0 +1,56 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block layout:fragment="header" th:include="@{/hotel/header}"></th:block>
+<section>
+    <form id="frm" name="frm" method="post" action="/create/checkin"
+          enctype="multipart/form-data">
+        <table border="1" align="center" width="600">
+            <br><br>
+            <tr th:height="35"><td th:width="250" th:align="center">예약자 성함</td>
+                <td th:width="350" th:align="left">
+                    <input th:type="text" th:size="20" name="hotelId">
+                </td>
+            </tr>
+
+            <tr th:height="35"><td th:width="250" th:align="center">호텔 선택</td>
+                <td th:width="350" th:align="left">
+                    <select name="hotelCode" style="height:23px; width:150px;">
+                        <option th:value="A001">신라호텔</option>
+                        <option th:value="A002">롯데호텔</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr th:height="35"><td th:width="250" th:align="center">룸 선택</td>
+                <td th:width="350" th:align="left">
+                    <select name="hotelRoomCode" style="height:23px; width:150px;">
+                        <option th:value="001">싱글룸</option>
+                        <option th:value="002">더블룸</option>
+                        <option th:value="003">트윈룸</option>
+                        <option th:value="004">스위트룸</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr th:height="35"><td th:width="250" th:align="center">체크인 날짜</td>
+                <td th:width="350" th:align="left">
+                    <input th:type="text" th:size="20" th:name="hotelCheckIn" th:value="${#calendars.format(#calendars.createToday(), 'yyyy-MM-dd')}">
+                </td>
+            </tr>
+
+            <tr th:height="35"><td th:width="250" th:align="center">체크인 아웃 날짜</td>
+                <td th:width="350" th:align="left">
+                    <input th:type="text" th:size="20" th:name="hotelCheckOut"
+                           th:with="util=${T(org.apache.commons.lang3.time.DateUtils)},
+                           date=${util.addDays(#dates.createToday(), 1)}"
+                           th:value="${#dates.format(date, 'yyyy-MM-dd')}">
+                </td>
+            </tr>
+
+            <tr th:height="35" align="center"><td align="center" colspan="2">
+                <input th:type="submit" th:value="예약하기">
+            </td> </tr>
+
+        </table>
+    </form>
+</section>
+<th:block layout:fragment="footer" th:include="@{/hotel/footer}"></th:block>
