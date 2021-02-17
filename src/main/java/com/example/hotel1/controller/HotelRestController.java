@@ -45,6 +45,7 @@ public class HotelRestController {
     }
     */
 
+    /*
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
     @RequestMapping(value = "/rest/update/checkin", method = RequestMethod.GET)
     public void updateCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
@@ -62,6 +63,21 @@ public class HotelRestController {
         System.out.println((hotelDto.getHotelRoomCode()));
         System.out.println((hotelDto.getHotelCheckIn()));
         System.out.println((hotelDto.getHotelCheckOut()));
+    }
+    */
+
+    // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
+    @RequestMapping(value = "/rest/update/checkin", method = RequestMethod.GET)
+    public void updateCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
+        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
+
+        // Overlapping == 0 체크인 중복 있음 , 1 중복 없음
+        if(Overlapping == 0) {
+            System.out.println("checkIn이 불가능한 날짜입니다.");
+        } else if (Overlapping == 1) {
+            System.out.println("checkIn이 가능한 날짜입니다.");
+            hotelService.updateCheckIn(hotelDto);
+        }
     }
 
     // 예약 취소

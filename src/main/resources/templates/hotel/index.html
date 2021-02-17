@@ -1,7 +1,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<th:block layout:fragment="header" th:include="@{/hotel/header}"></th:block>
+<th:block layout:fragment="header" th:include="/hotel/header"></th:block>
 <section>
-    <div id="title">호텔 예약 관리 프로그램</div>
+    <div id="title">시스템 안내 페이지</div>
     <div id="text">메뉴별 시스템 구축 안내</br></br>
         1. 호텔 예약시스템을 구축한다.</br>
         호텔 예약시 입력한 호텔명, 룸, 체크인, 체크아웃 날짜를 기존 데이터베이스에 저장된 값과 비교하여</br>
@@ -16,4 +16,4 @@
         예약 시스템과 마찬가지로 사용자가 변경하고자 하는 날짜에 룸이 이미 예약이 되어있다면 변경이 되지 않도록 한다.
     </div>
 </section>
-<th:block layout:fragment="footer" th:include="@{/hotel/footer}"></th:block>
+<th:block layout:fragment="footer" th:include="/hotel/footer"></th:block>

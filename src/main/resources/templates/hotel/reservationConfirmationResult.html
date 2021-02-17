@@ -1,0 +1,48 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block layout:fragment="header" th:include="/hotel/header"></th:block>
+<section>
+    <div id="title">개인 예약 정보</div>
+    <table th:border="1" th:align="center" th:width="600" th:each="hotel : ${hotel}">
+
+        <tr th:height="35"><td th:width="250" th:align="center">예약자 성함</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelId}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">예약하신 호텔</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelNameDto.hotelName}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">호텔 주소</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelNameDto.hotelAdd}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">호텔 연락처</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelNameDto.hotelTel}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">예약하신 룸 종류</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelRoomDto.hotelGrade}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">체크인 날짜</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelCheckIn}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">체크 아웃 날짜</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelCheckOut}">
+            </td>
+        </tr>
+
+        <tr th:height="35"><td th:width="250" th:align="center">총 지불 금액</td>
+            <td th:width="350" th:align="left" th:text="${hotel.hotelRoomDto.hotelPrice}+원">
+            </td>
+        </tr>
+    </table>
+</section>
+<th:block layout:fragment="footer" th:include="/hotel/footer"></th:block>
