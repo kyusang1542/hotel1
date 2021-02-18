@@ -20,4 +20,6 @@ public interface HotelMapper {
     List<HotelDto> selectIdCheckIn(String hotelId);
 
     List<HotelDto> checkInOverlappingOneDay(HotelDto hotelDto);
+
+    String checkId(HotelDto hotelDto);
 }

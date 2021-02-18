@@ -35,11 +35,6 @@ public class HotelServiceImpl implements HotelService{
     }
 
     @Override
-    public List<HotelDto> checkInOverlapping(HotelDto hotelDto) {
-        return hotelMapper.checkInOverlapping(hotelDto);
-    }
-
-    @Override
     public List<HotelDto> selectIdCheckIn(String hotelId) {
         return hotelMapper.selectIdCheckIn(hotelId);
     }
@@ -95,5 +90,11 @@ public class HotelServiceImpl implements HotelService{
         hotelDto.setHotelCheckIn(CheckInTime);
         hotelDto.setHotelCheckOut(CheckOutTime);
         return 1;
+    }
+
+    @Override
+    public String checkId(HotelDto hotelDto) {
+
+        return hotelMapper.checkId(hotelDto);
     }
 }

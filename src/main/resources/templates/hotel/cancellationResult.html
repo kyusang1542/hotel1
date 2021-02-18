@@ -1,0 +1,24 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block layout:fragment="header" th:include="/hotel/header"></th:block>
+<section>
+    <form id="frm" name="frm" method="post" action="/delete/checkin" enctype="multipart/form-data">
+        <div id="title">예약 취소</div>
+        <table th:border="1" align="center" th:width="600">
+            <tr th:height="35"><td th:width="250" th:align="center">예약자 성함</td>
+                <td th:width="350" th:align="left">
+                    <input th:type="text" th:size="20" th:name="hotelId">
+                </td>
+            </tr>
+
+            <tr th:height="35" th:align="center"><td align="center" colspan="2">
+                <input th:type="submit" th:value="취소하기">
+            </td> </tr>
+
+        </table>
+
+        <br>
+        <div id="textCenter">예약이 정상적으로 취소되었습니다.<br>
+            저희 호텔을 이용해 주셔서 감사합니다.</div>
+    </form>
+</section>
+<th:block layout:fragment="footer" th:include="/hotel/footer"></th:block>

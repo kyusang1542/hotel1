@@ -17,6 +17,7 @@
             <tr th:height="35" th:align="center"><td align="center" colspan="2">
                 <input th:type="submit" th:value="조회하기">
             </td> </tr>
+        </table>
 
         <!--    <table th:border="1" align="center" th:width="600">
                 <br><br>
@@ -36,6 +37,7 @@
                         th:if="${#strings.equals(hotelName, 'A002')}"
                         th:text="롯데호텔"></td>
                 </tr>
+            </table>
 
             <table th:border="1" align="center" th:width="600" th:each="hotel : ${hotel}">
                 <br><br>
@@ -72,8 +74,8 @@
                     </td>
                 </tr>
 
-
-        </table>
+            </table>
+        <br>
 
     </form>
 </div>

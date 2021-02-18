@@ -40,6 +40,10 @@
         ]]>
     </select>
 
+    <select id="checkId" parameterType="com.example.hotel1.dto.HotelDto" resultType="String">
+        select hotelId from hotel_reservation where hotelId = #{hotelId}
+    </select>
+
     <resultMap id="HotelNameDto" type="com.example.hotel1.dto.HotelNameDto">
         <result column="hotelCode" property="hotelCode"/>
         <result column="hotelAdd" property="hotelAdd"/>

@@ -51,9 +51,16 @@ public class HotelController {
             hotelService.updateCheckIn(hotelDto);
         }
 
-        ModelAndView mv = new ModelAndView("/hotel/reservationChangeResult");
+        ModelAndView mv;
         List<HotelDto> hotel = hotelService.selectIdCheckIn(hotelDto.getHotelId());
         System.out.println(hotel);
+
+        if(hotel.size()==0){
+            mv = new ModelAndView("/hotel/reservationChangeResultFail");
+        } else {
+            mv = new ModelAndView("/hotel/reservationChangeResult");
+        }
+
         mv.addObject("hotel", hotel);
 
         return mv;
@@ -65,25 +72,45 @@ public class HotelController {
         HotelDto hotelDto = new HotelDto();
         hotelDto.setHotelId(request.getParameter("hotelId"));
 
-        ModelAndView mv = new ModelAndView("/hotel/reservationConfirmationResult");
         List<HotelDto> hotel = hotelService.selectIdCheckIn(hotelDto.getHotelId());
+
+        ModelAndView mv;
+
+        if(hotel.size()==0){
+            // 개인 예약 정보 조회 결과가 없음
+            mv = new ModelAndView("/hotel/reservationConfirmationResultFail");
+        } else {
+            // 개인 예약 정보 조회 결과 있음
+            mv = new ModelAndView("/hotel/reservationConfirmationResult");
+        }
+
         System.out.println(hotel);
         mv.addObject("hotel", hotel);
-
 
         return mv;
     }
 
     // 예약 취소
     @RequestMapping(value = "/delete/checkin", method = RequestMethod.POST)
-    public String deleteCheckIn(HttpServletRequest request) throws Exception{
+    public ModelAndView deleteCheckIn(HttpServletRequest request) throws Exception{
         HotelDto hotelDto = new HotelDto();
 
         hotelDto.setHotelId(request.getParameter("hotelId"));
 
-        hotelService.deleteCheckIn(hotelDto);
+        String id = hotelService.checkId(hotelDto);
+        System.out.println(id);
 
-        return "/hotel/cancellation";
+        ModelAndView mv;
+        if(id==null){
+            // 개인 예약 정보 조회 결과가 없음
+            mv = new ModelAndView("/hotel/cancellationResultFail");
+        }else {
+            // 개인 예약 정보 조회 결과 있음
+            mv = new ModelAndView("/hotel/cancellationResult");
+            hotelService.deleteCheckIn(hotelDto);
+        }
+
+        return mv;
     }
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약
@@ -97,21 +124,35 @@ public class HotelController {
         hotelDto.setHotelCheckIn(Timestamp.valueOf(request.getParameter("hotelCheckIn") + " 00:00:00"));
         hotelDto.setHotelCheckOut(Timestamp.valueOf(request.getParameter("hotelCheckOut") + " 00:00:00"));
 
-        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
+        ModelAndView mv;
 
-        // Overlapping == 0 체크인 중복 있음 , 1 중복 없음
-        if(Overlapping == 0) {
-            System.out.println("checkIn이 불가능한 날짜입니다.");
-        } else if (Overlapping == 1) {
-            System.out.println("checkIn이 가능한 날짜입니다.");
-            hotelService.createCheckIn(hotelDto);
+        String id = hotelService.checkId(hotelDto);
+        System.out.println(id);
+
+        if(id != null) {
+            // id == null 이미 예약한 사람이 중복 예약시도
+            System.out.println("이미 예약한 사람입니다.");
+            mv = new ModelAndView("/hotel/checkInIdResultFail");
+            return mv;
         }
 
-        ModelAndView mv = new ModelAndView("/hotel/checkInResult");
-        List<HotelDto> hotel = hotelService.selectIdCheckIn(hotelDto.getHotelId());
-        System.out.println(hotel);
-        mv.addObject("hotel", hotel);
+        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
 
+        if (Overlapping == 1) {
+            // 체크인 가능
+            System.out.println("checkIn이 가능한 날짜입니다.");
+            hotelService.createCheckIn(hotelDto);
+
+            mv = new ModelAndView("/hotel/checkInResult");
+            List<HotelDto> hotel = hotelService.selectIdCheckIn(hotelDto.getHotelId());
+            System.out.println(hotel);
+            mv.addObject("hotel", hotel);
+
+        } else {
+            // 이미 예약된 룸에 체크인 시도
+            System.out.println("checkIn이 불가능한 날짜입니다.");
+            mv = new ModelAndView("/hotel/checkInResultFail");
+        }
         return mv;
     }
 
