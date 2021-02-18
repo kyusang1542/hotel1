@@ -69,7 +69,7 @@ public class HotelRestController {
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
     @RequestMapping(value = "/rest/update/checkin", method = RequestMethod.GET)
     public void updateCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
-        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
+        int Overlapping = hotelService.checkInOverlapping(hotelDto);
 
         // Overlapping == 0 체크인 중복 있음 , 1 중복 없음
         if(Overlapping == 0) {
@@ -101,7 +101,7 @@ public class HotelRestController {
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 수정버전
     @RequestMapping(value = "/rest/create/checkin/test", method = RequestMethod.GET)
     public void createCheckInOverlappingTest(@RequestBody HotelDto hotelDto) throws Exception{
-        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
+        int Overlapping = hotelService.checkInOverlapping(hotelDto);
 
         // Overlapping == 0 체크인 중복 있음 , 1 중복 없음
         if(Overlapping == 0) {

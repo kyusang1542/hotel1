@@ -40,7 +40,7 @@ public class HotelServiceImpl implements HotelService{
     }
 
     @Override
-    public int checkInOverlappingTest(HotelDto hotelDto) {
+    public int checkInOverlapping(HotelDto hotelDto) {
         System.out.println(hotelDto.getHotelCheckIn()+"TestIn");
         System.out.println(hotelDto.getHotelCheckOut()+"TestOUT");
 

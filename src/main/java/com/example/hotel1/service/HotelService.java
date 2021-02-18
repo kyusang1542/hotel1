@@ -16,7 +16,7 @@ public interface HotelService {
 
     List<HotelDto> selectIdCheckIn(String hotelId);
 
-    int checkInOverlappingTest(HotelDto hotelDto);
+    int checkInOverlapping(HotelDto hotelDto);
 
     // 예약자 이름을 비교하여 실제로 예약이 되어 있다면 예약자 이름을 반환
     String checkId(HotelDto hotelDto);

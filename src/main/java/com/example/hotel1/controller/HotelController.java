@@ -41,7 +41,7 @@ public class HotelController {
         hotelDto.setHotelCheckIn(Timestamp.valueOf(request.getParameter("hotelCheckIn") + " 00:00:00"));
         hotelDto.setHotelCheckOut(Timestamp.valueOf(request.getParameter("hotelCheckOut") + " 00:00:00"));
 
-        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
+        int Overlapping = hotelService.checkInOverlapping(hotelDto);
 
         // Overlapping == 0 체크인 중복 있음 , 1 중복 없음
         if(Overlapping == 0) {
@@ -136,7 +136,7 @@ public class HotelController {
             return mv;
         }
 
-        int Overlapping = hotelService.checkInOverlappingTest(hotelDto);
+        int Overlapping = hotelService.checkInOverlapping(hotelDto);
 
         if (Overlapping == 1) {
             // 체크인 가능
