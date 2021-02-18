@@ -17,9 +17,22 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
 
+    // 호텔별 예약 확인
+    @RequestMapping(value = "/read/hotel/checkin", method = RequestMethod.GET)
+    public ModelAndView selectHotelCheckIn(HttpServletRequest request) throws Exception{
+        ModelAndView mv = new ModelAndView("/hotel/reservationStatusResult");
+
+        List<HotelDto> hotel = hotelService.selectHotelCheckIn(request.getParameter("hotelCode"));
+
+        mv.addObject("hotelName", request.getParameter("hotelCode"));
+        mv.addObject("hotel", hotel);
+
+        return mv;
+    }
+
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
     @RequestMapping(value = "/update/checkin", method = RequestMethod.POST)
-    public String updateCheckIn(HttpServletRequest request) throws Exception{
+    public ModelAndView updateCheckIn(HttpServletRequest request) throws Exception{
         HotelDto hotelDto = new HotelDto();
 
         hotelDto.setHotelId(request.getParameter("hotelId"));
@@ -38,7 +51,12 @@ public class HotelController {
             hotelService.updateCheckIn(hotelDto);
         }
 
-        return "/hotel/reservationChange";
+        ModelAndView mv = new ModelAndView("/hotel/reservationChangeResult");
+        List<HotelDto> hotel = hotelService.selectIdCheckIn(hotelDto.getHotelId());
+        System.out.println(hotel);
+        mv.addObject("hotel", hotel);
+
+        return mv;
     }
 
     // 호텔 개인 예매 정보 확인
@@ -70,7 +88,7 @@ public class HotelController {
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약
     @RequestMapping(value = "/create/checkin", method = RequestMethod.POST)
-    public String createCheckInOverlapping(HttpServletRequest request) throws Exception{
+    public ModelAndView createCheckInOverlapping(HttpServletRequest request) throws Exception{
         HotelDto hotelDto = new HotelDto();
 
         hotelDto.setHotelId(request.getParameter("hotelId"));
@@ -89,29 +107,45 @@ public class HotelController {
             hotelService.createCheckIn(hotelDto);
         }
 
-        return "/hotel/checkIn";
+        ModelAndView mv = new ModelAndView("/hotel/checkInResult");
+        List<HotelDto> hotel = hotelService.selectIdCheckIn(hotelDto.getHotelId());
+        System.out.println(hotel);
+        mv.addObject("hotel", hotel);
+
+        return mv;
     }
 
+    // 호텔별 예약 현황 페이지 이동
+    @RequestMapping("/hotel/reservation/status")
+    public String openReservationStatus() throws Exception{
+        return "/hotel/reservationStatus";
+    }
+
+    // 예약 변경 페이지 이동
     @RequestMapping("/hotel/reservation/change")
     public String openReservationChange() throws Exception{
         return "/hotel/reservationChange";
     }
 
+    // 개인 예약 정보 페이지 이동
     @RequestMapping("/hotel/reservation/confirmation")
     public String openReservationConfirmation() throws Exception{
         return "/hotel/reservationConfirmation";
     }
 
-    @RequestMapping("/hotel/cancellation")
+    // 예약 취소 페이지 이동
+    @RequestMapping("/hotel/reservation/cancellation")
     public String openCancellation() throws Exception{
         return "/hotel/cancellation";
     }
 
-    @RequestMapping("/hotel/checkin")
+    // 호텔 예약 페이지 이동
+    @RequestMapping("/hotel/reservation/checkin")
     public String openCheckIn() throws Exception{
         return "/hotel/checkIn";
     }
 
+    // 시스템 안내 페이지 이동
     @RequestMapping("/hotel/index")
     public String openIndex() throws Exception{
         return "/hotel/index";

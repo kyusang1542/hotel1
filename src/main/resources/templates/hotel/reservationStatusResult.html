@@ -1,0 +1,80 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block layout:fragment="header" th:include="/hotel/header"></th:block>
+<div id="StatusSection">
+    <form id="frm" name="frm" method="get" action="/read/hotel/checkin" enctype="multipart/form-data">
+        <div id="title">호텔별 예약 현황</div>
+
+        <table th:border="1" align="center" th:width="600">
+            <tr th:height="35"><td th:width="250" th:align="center">호텔 선택</td>
+                <td th:width="350" th:align="left">
+                    <select th:name="hotelCode" style="height:23px; width:150px;">
+                        <option th:value="A001">신라호텔</option>
+                        <option th:value="A002">롯데호텔</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr th:height="35" th:align="center"><td align="center" colspan="2">
+                <input th:type="submit" th:value="조회하기">
+            </td> </tr>
+
+        <!--    <table th:border="1" align="center" th:width="600">
+                <br><br>
+                <tr th:height="35"><td th:width="250" th:align="center">조회된 호텔</td>
+                    <td th:width="350" th:text="${hotelName}"></td>
+                </tr>
+            </table>-->
+
+            <table th:border="1" align="center" th:width="600">
+                <br><br>
+                <tr th:height="35"><td th:width="250" th:align="center">조회된 호텔</td>
+                    <td th:width="350"
+                        th:if="${#strings.equals(hotelName, 'A001')}"
+                        th:text="신라호텔"></td>
+
+                    <td th:width="350"
+                        th:if="${#strings.equals(hotelName, 'A002')}"
+                        th:text="롯데호텔"></td>
+                </tr>
+
+            <table th:border="1" align="center" th:width="600" th:each="hotel : ${hotel}">
+                <br><br>
+
+                <tr th:height="35"><td th:width="250" th:align="center">예약된 룸</td>
+                    <td th:width="350" th:align="left"
+                        th:if="${#strings.equals(hotel.hotelRoomCode, 1)}"
+                        th:text="싱글룸">
+                    </td>
+
+                    <td th:width="350" th:align="left"
+                        th:if="${#strings.equals(hotel.hotelRoomCode, 2)}"
+                        th:text="더블룸">
+                    </td>
+
+                    <td th:width="350" th:align="left"
+                        th:if="${#strings.equals(hotel.hotelRoomCode, 3)}"
+                        th:text="트윈룸">
+                    </td>
+
+                    <td th:width="350" th:align="left"
+                        th:if="${#strings.equals(hotel.hotelRoomCode, 4)}"
+                        th:text="스위트룸">
+                    </td>
+                </tr>
+
+                <tr th:height="35"><td th:width="250" th:align="center">체크인 날짜</td>
+                    <td th:width="350" th:align="left" th:text="${hotel.hotelCheckIn}">
+                    </td>
+                </tr>
+
+                <tr th:height="35"><td th:width="250" th:align="center">체크 아웃 날짜</td>
+                    <td th:width="350" th:align="left" th:text="${hotel.hotelCheckOut}">
+                    </td>
+                </tr>
+
+
+        </table>
+
+    </form>
+</div>
+<th:block layout:fragment="footer" th:include="/hotel/footer"></th:block>
