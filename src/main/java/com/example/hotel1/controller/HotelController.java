@@ -130,7 +130,7 @@ public class HotelController {
         System.out.println(id);
 
         if(id != null) {
-            // id == null 이미 예약한 사람이 중복 예약시도
+            // id != null 이미 예약한 사람이 중복 예약시도
             System.out.println("이미 예약한 사람입니다.");
             mv = new ModelAndView("/hotel/checkInIdResultFail");
             return mv;
