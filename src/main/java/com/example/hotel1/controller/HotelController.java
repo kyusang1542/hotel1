@@ -2,6 +2,8 @@ package com.example.hotel1.controller;
 
 import com.example.hotel1.dto.HotelDto;
 import com.example.hotel1.service.HotelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import java.util.List;
 @Controller
 public class HotelController {
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private HotelService hotelService;
 
@@ -21,6 +25,8 @@ public class HotelController {
     @RequestMapping(value = "/read/hotel/checkin", method = RequestMethod.GET)
     public ModelAndView selectHotelCheckIn(HttpServletRequest request) throws Exception{
         ModelAndView mv = new ModelAndView("/hotel/reservationStatusResult");
+
+        //log.debug("로그 출력 테스트");
 
         List<HotelDto> hotel = hotelService.selectHotelCheckIn(request.getParameter("hotelCode"));
 
