@@ -1,9 +1,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="header" th:include="/hotel/header"></th:block>
 <section>
-    <form id="frm" name="frm" method="post" action="/create/checkin"
+    <form id="frm" name="frm" method="post" action="/update/checkin"
           enctype="multipart/form-data">
-        <div id="title">호텔 예약</div>
+        <div id="title">예약 변경</div>
         <table th:border="1" th:align="center" th:width="600">
             <tr th:height="35"><td th:width="250" th:align="center">예약자 성함</td>
                 <td th:width="350" th:align="left">
@@ -47,15 +47,15 @@
             </tr>
 
             <tr th:height="35" th:align="center"><td align="center" colspan="2">
-                <input th:type="submit" th:value="예약하기">
+                <input th:type="submit" th:value="변경하기">
             </td> </tr>
 
         </table>
 
         <br>
-        <div id="textCenter">귀하는 이미 저희 호텔에 예약중입니다.<br>
+        <div id="textCenter">귀하의 성함이 예약자 명단에 없습니다.<br>
             문의사항이 있으시다면 고객센터로 연락바랍니다.<br>
-            이용해 주셔서 감사합니다.</div>
+            이용에 불편을 드려 죄송합니다.</div>
     </form>
 </section>
 <th:block layout:fragment="footer" th:include="/hotel/footer"></th:block>

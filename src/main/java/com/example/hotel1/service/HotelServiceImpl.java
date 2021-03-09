@@ -58,6 +58,18 @@ public class HotelServiceImpl implements HotelService{
         System.out.println(day + "날" + hour +"시간"+ minute + "분" + second + "초");
         */
 
+        /*
+        CheckInTime과 CheckOutTime을 서로 비교하여 만약 두 시간이 서로 같거나
+        CheckInTime의 시간이 CheckOutTime의 시간보다 크다면 2를 반환
+        */
+        long InTime = CheckInTime.getTime();
+        long OutTime = CheckOutTime.getTime();
+        if(InTime>=OutTime){
+            System.out.println("CheckInTime이 CheckOutTime과 같거나 큽니다.");
+            return 2;
+        }
+
+
         // 1박째 연산
         Timestamp t1 = CheckInTime;
         Timestamp t2 = CheckOutTime;

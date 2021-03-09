@@ -37,7 +37,7 @@
                 </td>
             </tr>
 
-            <tr th:height="35"><td th:width="250" th:align="center">체크인 아웃 날짜</td>
+            <tr th:height="35"><td th:width="250" th:align="center">체크 아웃 날짜</td>
                 <td th:width="350" th:align="left">
                     <input th:type="text" th:size="20" th:name="hotelCheckOut"
                            th:with="util=${T(org.apache.commons.lang3.time.DateUtils)},
@@ -53,9 +53,8 @@
         </table>
 
         <br>
-        <div id="textCenter">귀하의 성함이 예약자 명단에 없습니다.<br>
-            문의사항이 있으시다면 고객센터로 연락바랍니다.<br>
-            이용에 불편을 드려 죄송합니다.</div>
+        <div id="textCenter">선택하신 호텔의 룸은 이미 예약중입니다.<br>
+            호텔별 예약 현황을 확인하여 주시기 바랍니다.</div>
     </form>
 </section>
 <th:block layout:fragment="footer" th:include="/hotel/footer"></th:block>
