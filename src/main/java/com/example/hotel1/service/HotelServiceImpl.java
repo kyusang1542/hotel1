@@ -1,6 +1,7 @@
 package com.example.hotel1.service;
 
 import com.example.hotel1.dto.HotelDto;
+import com.example.hotel1.dto.HotelQnADto;
 import com.example.hotel1.mapper.HotelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,5 +109,10 @@ public class HotelServiceImpl implements HotelService{
     public String checkId(HotelDto hotelDto) {
 
         return hotelMapper.checkId(hotelDto);
+    }
+
+    @Override
+    public void createSupport(HotelQnADto hotelQnADto) {
+        hotelMapper.createSupport(hotelQnADto);
     }
 }

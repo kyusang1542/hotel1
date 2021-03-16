@@ -1,6 +1,7 @@
 package com.example.hotel1.controller;
 
 import com.example.hotel1.dto.HotelDto;
+import com.example.hotel1.dto.HotelQnADto;
 import com.example.hotel1.service.HotelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -68,6 +69,12 @@ public class HotelRestController {
         System.out.println((hotelDto.getHotelCheckOut()));
     }
     */
+
+    // 1:1 고객 문의
+    @RequestMapping(value = "/rest/create/support", method = RequestMethod.GET)
+    public void createSupport(@RequestBody HotelQnADto hotelQnADto) throws Exception{
+        hotelService.createSupport(hotelQnADto);
+    }
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
     @ApiOperation(value = "예약 변경")

@@ -132,7 +132,7 @@ public class HotelController {
         }
 
         //에러 강제 발생
-        int i = 10/0;
+        //int i = 10/0;
 
         return mv;
     }

@@ -1,6 +1,7 @@
 package com.example.hotel1.mapper;
 
 import com.example.hotel1.dto.HotelDto;
+import com.example.hotel1.dto.HotelQnADto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface HotelMapper {
     List<HotelDto> checkInOverlappingOneDay(HotelDto hotelDto);
 
     String checkId(HotelDto hotelDto);
+
+    void createSupport(HotelQnADto hotelQnADto);
 }
