@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+// 예외처리 구현
 @ControllerAdvice
 public class ExceptionHandler {
     private Logger log = LoggerFactory.getLogger(this.getClass());

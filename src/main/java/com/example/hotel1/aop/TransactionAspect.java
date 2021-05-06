@@ -14,6 +14,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import java.util.Collections;
 
+// 트랜잭션 구현
 @Configuration
 public class TransactionAspect {
 

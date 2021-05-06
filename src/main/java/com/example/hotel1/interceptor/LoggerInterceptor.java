@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// 인터셉터 구현
 @Slf4j
 public class LoggerInterceptor implements HandlerInterceptor {
 

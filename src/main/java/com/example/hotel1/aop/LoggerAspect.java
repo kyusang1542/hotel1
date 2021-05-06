@@ -7,12 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+// AOP 구현
 @Component
 @Aspect
 public class LoggerAspect {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Around("execution(* com.example.hotel1..controller.*Controller.*(..)) or execution(* com.example.hotel1..service.*Impl.*(..)) or execution(* com.example.hotel1..mapper.*Mapper.*(..))")
+    @Around("execution(* com.example.hotel1..controller.*Controller.*(..)) or " +
+            "execution(* com.example.hotel1..service.*Impl.*(..)) or " +
+            "execution(* com.example.hotel1..mapper.*Mapper.*(..))")
     public Object logPrint(ProceedingJoinPoint joinPoint) throws Throwable{
         String type = "";
         String name = joinPoint.getSignature().getDeclaringTypeName();

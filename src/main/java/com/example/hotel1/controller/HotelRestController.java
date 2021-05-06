@@ -70,15 +70,15 @@ public class HotelRestController {
     }
     */
 
-    // 1:1 고객 문의
-    @RequestMapping(value = "/rest/create/support", method = RequestMethod.GET)
+    // 1:1 고객 문의 (구현중)
+    @RequestMapping(value = "/rest/create/support", method = RequestMethod.POST)
     public void createSupport(@RequestBody HotelQnADto hotelQnADto) throws Exception{
         hotelService.createSupport(hotelQnADto);
     }
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약 변경
     @ApiOperation(value = "예약 변경")
-    @RequestMapping(value = "/rest/update/checkin", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/update/checkin", method = RequestMethod.PUT)
     public void updateCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
         int Overlapping = hotelService.checkInOverlapping(hotelDto);
 
@@ -93,7 +93,7 @@ public class HotelRestController {
 
     // 예약 취소
     @ApiOperation("예약 취소")
-    @RequestMapping(value = "/rest/delete/checkin", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/delete/checkin", method = RequestMethod.DELETE)
     public void deleteCheckIn(@RequestBody HotelDto hotelDto) throws Exception{
         hotelService.deleteCheckIn(hotelDto);
     }
@@ -114,7 +114,7 @@ public class HotelRestController {
 
     // 체크인, 체크아웃 날짜 중복 체크 후 예약
     @ApiOperation(value = "체크인(예약)")
-    @RequestMapping(value = "/rest/create/checkin/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/create/checkin", method = RequestMethod.POST)
     public void createCheckInOverlappingTest(@RequestBody HotelDto hotelDto) throws Exception{
         int Overlapping = hotelService.checkInOverlapping(hotelDto);
 
